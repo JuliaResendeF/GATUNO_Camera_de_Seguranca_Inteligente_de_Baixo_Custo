@@ -8,7 +8,7 @@ import Monitoramento as Moni
 
 app = CTk()
 app.geometry("856x645")
-#app.iconbitmap('Image_icon.ico')
+
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 image_path = os.path.join(current_dir, "Image_Back.png")
