@@ -35,24 +35,21 @@ def Test_Mov():
 def Test_Moni():
         video = cv2.VideoCapture(ip_cam)
         verifica, img_2 = video.read()
-        Img_cinza1 = cv2.cvtColor(img_2, cv2.COLOR_BGR2GRAY)
-        Print_Cont = 0
+        Gray1 = cv2.cvtColor(img_2, cv2.COLOR_BGR2GRAY)
         while True:
-            #Inicia a leitura das imagens da camera
             verifica, img = video.read()
-            Img_cinza2 = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
-            Cruzamento_img = cv2.absdiff(Img_cinza1, Img_cinza2)
+            Gray2 = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
+            Cruzamento_img = cv2.absdiff(Gray1, Gray2)
 
-            Controle_, Barreira_detec = cv2.threshold(Cruzamento_img, 30, 255, cv2.THRESH_BINARY)
+            _, Barreira_detec = cv2.threshold(Cruzamento_img, 30, 255, cv2.THRESH_BINARY)
 
             Limitar_area, _ = cv2.findContours(Barreira_detec, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             
             for Limitar_area in Limitar_area:
                 if cv2.contourArea(Limitar_area) > 1000:
-                    A, B, C, D = cv2.boundingRect(Limitar_area)
-                    cv2.rectangle(img, (A, B), (A+C, B+D), (0, 255, 255), 2) 
+                    a, b, c, d = cv2.boundingRect(Limitar_area)
+                    cv2.rectangle(img, (a, b), (a+c, b+d), (0, 255, 255), 2) 
 
-            #Exibe a imagem da camera com o monitoramento sendo realizado
             cv2.imshow('Monitoramento', img)
     
             if cv2.waitKey(1) & 0xFF == ord('q'):
